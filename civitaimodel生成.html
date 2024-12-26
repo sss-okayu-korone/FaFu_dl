@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>civitaimodel生成</title>
+    <script>
+        function addPrefix() {
+            // 入力されたテキストと追加する文字列を取得
+            const inputText = document.getElementById('inputText').value;
+            const prefix = document.getElementById('prefix').value;
+
+            // テキストを行ごとに分割
+            const lines = inputText.split('\n');
+
+            // 各行の文頭に特定の文字列を追加
+            const updatedLines = lines.map(line => prefix + line);
+
+            // 結果を結合して表示
+            const resultText = updatedLines.join('\n');
+            document.getElementById('resultText').textContent = resultText;
+        }
+
+        function copyToClipboard() {
+            const resultText = document.getElementById('resultText').textContent;
+
+            // 一時的なテキストエリアを作成して、そこに結果をコピー
+            const tempTextarea = document.createElement('textarea');
+            tempTextarea.value = resultText;
+            document.body.appendChild(tempTextarea);
+            tempTextarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextarea);
+
+            alert('結果がクリップボードにコピーされました');
+        }
+    </script>
+</head>
+<body>
+    <h1>改行付きテキストの文頭に特定の文字列を追加</h1>
+    
+    <textarea id="inputText" rows="10" cols="50" placeholder="ここにテキストを入力してください"></textarea>
+    <br><br>
+    
+    <input type="text" id="prefix" placeholder="追加する文字列" value = 'https://civitai.com/models/'>
+    <button onclick="addPrefix()">追加する</button>
+    <br><br>
+    
+    <h2>結果:</h2>
+    <pre id="resultText"></pre>
+    <button onclick="copyToClipboard()">結果をコピーする</button>
+</body>
+</html>
